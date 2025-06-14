@@ -81,7 +81,6 @@ export default function ViktimPage() {
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: '<!-- Welcome developers! -->' }} />
       {shutdown ? (
         <>
           <div className='flex min-h-screen flex-col items-center justify-center bg-black p-6 text-white'>
