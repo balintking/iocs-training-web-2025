@@ -16,6 +16,7 @@ export default function ViktimPage() {
   const [submitted, setSubmitted] = useState(false);
   const [glitch, setGlitch] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const shutdown = true;
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -79,70 +80,84 @@ export default function ViktimPage() {
   };
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-center bg-black p-6 text-white'>
-      <Reveal>
-        <div className='text-center'>
-          <h1 className='text-5xl font-extrabold text-fuchsia-400 drop-shadow-[0_0_15px_#f0f]'>Üdv, Vándor</h1>
-          <p className='mt-2 text-lg italic text-gray-400'>
-            Nem tudod mit kezdj magaddal tavasszal, vagy szeptember elején?
-          </p>
-          <p className='text-lg italic text-gray-400'>
-            Ne aggódj, íme néhány remek programötlet, amivel el tudod tölteni a szabadidődet:
-          </p>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.1}>
-        {activity ? (
-          <div
-            className={`
-              mt-8 w-full max-w-lg rounded-xl border border-pink-400/30 bg-gradient-to-br from-fuchsia-500 to-purple-700
-              p-6 text-center shadow-lg
-
-              ${glitch ? 'animate-glitch' : ''}
-            `}
-          >
-            <h2 className='text-2xl font-semibold text-white drop-shadow'>{activity}</h2>
+    <>
+      {shutdown ? (
+        <>
+          <div className='flex min-h-screen flex-col items-center justify-center bg-black p-6 text-white'>
+            <div className='flex'>
+              <h2 className='mr-2 border-r border-white pr-2 text-xl'>410</h2>
+              <h2>This page has been shut down.</h2>
+            </div>
+            <h3 className='text-center text-black'>Kitartást a bátoraknak!</h3>
           </div>
-        ) : (
-          <div className='mt-8 w-full max-w-lg text-center'>
-            <Loader className='h-10 w-10 animate-spin text-fuchsia-400' />
-          </div>
-        )}
-      </Reveal>
+        </>
+      ) : (
+        <div className='flex min-h-screen flex-col items-center justify-center bg-black p-6 text-white'>
+          <Reveal>
+            <div className='text-center'>
+              <h1 className='text-5xl font-extrabold text-fuchsia-400 drop-shadow-[0_0_15px_#f0f]'>Üdv, Vándor</h1>
+              <p className='mt-2 text-lg italic text-gray-400'>
+                Nem tudod mit kezdj magaddal tavasszal, vagy szeptember elején?
+              </p>
+              <p className='text-lg italic text-gray-400'>
+                Ne aggódj, íme néhány remek programötlet, amivel el tudod tölteni a szabadidődet:
+              </p>
+            </div>
+          </Reveal>
 
-      <Reveal delay={0.2}>
-        <div className='mt-5'>
-          <EncryptButton onClick={getRandomActivity} />
-        </div>
-      </Reveal>
+          <Reveal delay={0.1}>
+            {activity ? (
+              <div
+                className={`
+                  mt-8 w-full max-w-lg rounded-xl border border-pink-400/30 bg-gradient-to-br from-fuchsia-500
+                  to-purple-700 p-6 text-center shadow-lg
 
-      <Reveal delay={0.3}>
-        <div className='mt-10 w-full max-w-lg text-center'>
-          <p className='mb-2 text-lg text-gray-300'>
-            Van egy jó programötleted? Oszd meg, hátha mások is kedvet kapnak hozzá:
-          </p>
-          <div className='flex gap-2'>
-            <Input
-              type='text'
-              value={userIdea}
-              onChange={(e) => setUserIdea(e.target.value)}
-              placeholder="Pl. 'Készíts Soba™ tésztaételt 🍝'"
-              className='min-w-60 flex-1 rounded-lg border border-gray-700 bg-gray-900 p-3 text-white'
-            />
-            <Button onClick={handleSubmit} variant='light' className='drop-shadow-[0_0_5px_#f0f]'>
-              <Send />
-              Küldés
-            </Button>
-          </div>
-          {submitted && (
-            <p className='mt-2 animate-pulse text-green-400'>
-              Köszönjük az ötletet, tudunk róla, esetleg számításba vesszük.
-            </p>
-          )}
-          {error && <p className='mt-2 text-red-400'>{error}</p>}
+                  ${glitch ? 'animate-glitch' : ''}
+                `}
+              >
+                <h2 className='text-2xl font-semibold text-white drop-shadow'>{activity}</h2>
+              </div>
+            ) : (
+              <div className='mt-8 w-full max-w-lg text-center'>
+                <Loader className='h-10 w-10 animate-spin text-fuchsia-400' />
+              </div>
+            )}
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <div className='mt-5'>
+              <EncryptButton onClick={getRandomActivity} />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.3}>
+            <div className='mt-10 w-full max-w-lg text-center'>
+              <p className='mb-2 text-lg text-gray-300'>
+                Van egy jó programötleted? Oszd meg, hátha mások is kedvet kapnak hozzá:
+              </p>
+              <div className='flex gap-2'>
+                <Input
+                  type='text'
+                  value={userIdea}
+                  onChange={(e) => setUserIdea(e.target.value)}
+                  placeholder="Pl. 'Készíts Soba™ tésztaételt 🍝'"
+                  className='min-w-60 flex-1 rounded-lg border border-gray-700 bg-gray-900 p-3 text-white'
+                />
+                <Button onClick={handleSubmit} variant='light' className='drop-shadow-[0_0_5px_#f0f]'>
+                  <Send />
+                  Küldés
+                </Button>
+              </div>
+              {submitted && (
+                <p className='mt-2 animate-pulse text-green-400'>
+                  Köszönjük az ötletet, tudunk róla, esetleg számításba vesszük.
+                </p>
+              )}
+              {error && <p className='mt-2 text-red-400'>{error}</p>}
+            </div>
+          </Reveal>
         </div>
-      </Reveal>
-    </div>
+      )}
+    </>
   );
 }
